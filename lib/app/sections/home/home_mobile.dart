@@ -1,0 +1,96 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
+import 'package:portfolio/app/widgets/color_chage_btn.dart';
+import 'package:portfolio/changes/img.dart';
+import 'package:portfolio/changes/links.dart';
+import 'package:portfolio/changes/strings.dart';
+import 'package:portfolio/core/animations/entrance_fader.dart';
+import 'package:portfolio/core/animations/zoom_animation.dart';
+import 'package:portfolio/core/configs/configs.dart';
+import 'package:portfolio/core/res/responsive_size.dart';
+import 'package:sizer/sizer.dart';
+import 'package:universal_html/html.dart' as html;
+
+import 'widgets/animation_text.dart';
+
+class HomeMobile extends StatelessWidget {
+  const HomeMobile({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+
+    return Padding(
+      padding: EdgeInsets.only(left: 10.w, top: 10.h, right: 10.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                hellotag,
+                style: AppText.h3!.copyWith(fontSize: isFontSize(context, 16),
+                  color: theme.textColor.withOpacity(0.6),
+                ),
+              ),
+              // Space.x!,
+              Image.asset(StaticImage.hi, height: 10.sp),
+            ],
+          ),
+          // Space.y(1.w)!,
+          Text(
+            yourname,
+            style: TextStyle(
+              color: theme.textColor,
+              fontSize: isFontSize(context, 28),
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Space.y(1.w)!,
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(
+                "A",
+                style: TextStyle(
+                  fontSize: isFontSize(context, 18),
+                  fontWeight: FontWeight.w400,
+                  color: theme.textColor.withOpacity(0.6),
+                ),
+              ),
+              AnimatedTextKit(
+                animatedTexts: [  TyperAnimatedText(animationtxt1,
+                    speed: const Duration(milliseconds: 50),
+                    textStyle: AppText.h2!.copyWith(fontSize: 16,
+                        color: theme.textColor.withOpacity(0.6)
+                    )),],
+                isRepeatingAnimation: false,
+                repeatForever: false,
+              ),
+            ],
+          ),
+
+          Space.y(2.w)!,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ColorChageButton(
+                text: 'download cv',
+                onTap: () {
+                  html.window.open(resume, "pdf");
+                },
+              ),
+              const EntranceFader(
+                offset: Offset(0, 0),
+                delay: Duration(seconds: 1),
+                duration: Duration(milliseconds: 800),
+                child: ZoomAnimations(),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
